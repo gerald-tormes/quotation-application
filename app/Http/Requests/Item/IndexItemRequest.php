@@ -65,10 +65,10 @@ class IndexItemRequest extends FormRequest
      public function getFilters(): array
     {
         return [
-            'category' => $this->input('category', null),
-            'type' => $this->input('type', null),
-            'search' => $this->input('search', ''),
-            'active' => $this->boolean('active', true),
+            'category' => $validated['category'] ?? null,
+            'type' => $validated['type'] ?? null,
+            'search' => $validated['search'] ?? '',
+            'active' => $validated['active'] ?? true,
         ];
     }
 

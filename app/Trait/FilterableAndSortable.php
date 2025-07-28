@@ -22,7 +22,7 @@ trait FilterableAndSortable
             ->paginate($perPage)
             ->withQueryString()
             ->appends([
-                'sortfield' => $sorting['field'],
+                'sortField' => $sorting['field'],
                 'sortDirection' => $sorting['direction'],
             ]);
     }

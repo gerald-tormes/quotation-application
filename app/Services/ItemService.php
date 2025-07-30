@@ -68,4 +68,11 @@ class ItemService
                 'label' => ucfirst($item->type),
             ]);
     }
+
+    public function createItem(array $data): Item
+    {
+        // This method can be used to encapsulate the logic for creating an item.
+        // It can include additional business logic, such as logging or event dispatching.
+        return Item::create($data);
+    }
 }

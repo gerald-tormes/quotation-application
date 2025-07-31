@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Items;
 
+use App\DTOs\ItemData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Item\StoreItemRequest;
 use Illuminate\Http\Request;
@@ -21,12 +22,15 @@ class StoreItem extends Controller
      */
     public function __invoke(StoreItemRequest $request)
     {
-        $validated = $request->validated();
+        $dto = ItemData::fromRequest($request);
 
-        $item = $this->itemService->createItem($validated);
-        // After creating the item, you might want to redirect or return a response.
-        // For example, redirecting to the items index page with a success message.
+        // Use the service to create the item.
+        $this->itemService->createItem($dto);
+
+        // Redirect to the items index page with a success message.
         return redirect()->route('items.index')->with('success', 'Item created successfully.');
+
+
     }
 
 }

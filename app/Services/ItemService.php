@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTOs\ItemData;
 use App\Models\Item;
 use App\Traits\FilterableAndSortable;
 use Illuminate\Database\Eloquent\Builder;
@@ -69,10 +70,29 @@ class ItemService
             ]);
     }
 
-    public function createItem(array $data): Item
+    /**
+     * Create a new item.
+     *
+     * @param ItemData
+     * @return Item The created item
+     */
+    // This method can be used to encapsulate the logic for creating an item.
+    // It can include additional business logic, such as logging or event dispatching.
+    public function createItem(ItemData $data): Item
     {
         // This method can be used to encapsulate the logic for creating an item.
         // It can include additional business logic, such as logging or event dispatching.
-        return Item::create($data);
+
+        return Item::create(
+            [
+                'item_code' => $data->item_code,
+                'name' => $data->name,
+                'category' => $data->category,
+                'type' => $data->type,
+                'cost_price' => $data->cost_price,
+                'selling_price' => $data->selling_price,
+                'is_active' => $data->is_active,
+            ]
+        );
     }
 }

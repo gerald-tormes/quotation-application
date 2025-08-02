@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\DTOs\ItemData;
 use App\Models\Item;
+
 use App\Traits\FilterableAndSortable;
+use App\Traits\LogModelEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -14,7 +16,7 @@ class ItemService
     // For example, methods for creating, updating, deleting, or retrieving items
     // can be added here to keep the controller clean and focused on request handling.
 
-     use FilterableAndSortable;
+     use FilterableAndSortable, LogModelEvents;
 
      private function buildQuery(array $filters): Builder
      {
@@ -83,7 +85,7 @@ class ItemService
         // This method can be used to encapsulate the logic for creating an item.
         // It can include additional business logic, such as logging or event dispatching.
 
-        return Item::create(
+        $item = Item::create(
             [
                 'item_code' => $data->item_code,
                 'name' => $data->name,
@@ -94,5 +96,9 @@ class ItemService
                 'is_active' => $data->is_active,
             ]
         );
+
+        $item->logEvent('created');
+
+        return $item;
     }
 }

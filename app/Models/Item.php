@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\LogModelEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    use HasFactory;
+    use LogModelEvents;
     protected $fillable = [
         'item_code',
         'name',
